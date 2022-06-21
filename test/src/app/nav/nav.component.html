@@ -1,0 +1,87 @@
+<!-- <mat-toolbar>
+  <div class="example-button-container">
+    <span><button mat-fab color="warn" aria-label="Example icon button with a home icon">
+        <mat-icon>home</mat-icon>
+      </button></span>
+    <span> Welcome to SUSANTA STORE</span>
+    <button mat-button [matMenuTriggerFor]="menu"> <i class="fa fa-credit-card" aria-hidden="true"></i>Select
+      Theem</button>
+    <mat-menu #menu="matMenu">
+      <button (click)="theme()" mat-menu-item> <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Defult
+        Theem</button>
+      <button (click)="themeone()" mat-menu-item> <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Theem One
+      </button>
+    </mat-menu>
+  </div>
+
+  <span class="example-spacer"></span>
+
+  <div class="example-button-container">
+    <span><button mat-fab color="warn" aria-label="Example icon button with a call icon">
+        <mat-icon>call</mat-icon>
+      </button></span>
+    <span>9533333333</span>
+  </div>
+  <div class="example-button-container">
+    <span><button mat-fab color="warn" aria-label="Example icon button with a email icon">
+        <mat-icon>email</mat-icon>
+      </button></span>
+    <span>susanta234@gmail.com</span>
+  </div>
+</mat-toolbar> -->
+<!------------------------- NAV------------------------------>
+<!-- <mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>
+      <a class="nav-link" routerLink="/home"><button mat-flat-button color="primary">Home</button></a>
+    </span>
+    <span>
+      <a class="nav-link" routerLink="/about"> <button mat-flat-button color="primary">About Us</button></a>
+    </span>
+    <span>
+      <a class="nav-link" routerLink="/product"><button mat-flat-button color="primary">Products</button></a>
+    </span>
+
+    <span>
+      <a class="nav-link" routerLink="/service"><button mat-flat-button color="primary">Services</button></a>
+    </span>
+
+    <span class="example-spacer"></span>
+    <span>
+      <a class="nav-link" routerLink="/career"><button mat-flat-button color="primary">Careers</button></a>
+    </span>
+    <span>
+      <a class="nav-link" routerLink="/cont"><button mat-flat-button color="primary">Contact Us</button></a>
+    </span>
+
+  </mat-toolbar> -->
+<nav id="mainNavbar" class="navbar navbar-expand-sm navbar-light navbar_color">
+  <div class="container-fluid">
+    <span class="home_btn"><button mat-fab color="warn" aria-label="Example icon button with a home icon">
+      <mat-icon>home</mat-icon>
+    </button></span>
+   <a class="nav-link" routerLink="/home"><span class="nav_heading">Welcome to Susant Demo</span></a>
+    <button class="navbar-toggler bar_icon" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+      (click)="collapsed = !this.collapsed">
+      <span class="navbar-toggler-icon bar_span"></span>
+    </button>
+    <div id="navbarSupportedContent" [ngClass]="{ collapse: collapsed, 'navbar-collapse': true }">
+      <!-- right nav menus -->
+      <ul class="navbar-nav ml-auto">
+        <li routerLinkActive="active" class="nav-item">
+          <a class="nav-link" routerLink="/home"><button mat-flat-button color="primary">Home</button></a>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+          <a class="nav-link" routerLink="/home"><button mat-flat-button color="primary">View Profile</button></a>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+          <a class="nav-link"><button mat-flat-button (click)="logout()" color="primary">Logout</button></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
