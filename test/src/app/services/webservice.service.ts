@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebserviceService {
-
+  companyname = new BehaviorSubject<string>('Susanta Demo for test');
   constructor(private http: HttpClient) { }
   postRequest(url: string, data: any): any {
     let headers = new HttpHeaders({

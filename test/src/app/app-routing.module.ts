@@ -11,7 +11,7 @@ const routes: Routes = [
 
   {path:'',redirectTo: '/login',pathMatch: 'full'},
   {path:'home',component:HomeComponent},
-  {path:'nav',component:NavComponent},
+  {path:'companyname',component:NavComponent},
   {path:'sinup',component:SinupComponent},
   {path:'login',component:LoginComponent},
   {path:'side',component:SideMenuComponent},

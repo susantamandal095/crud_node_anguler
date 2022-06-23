@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import {
+  WebserviceService
+} from '../services/webservice.service';
 
 
 @Component({
@@ -14,11 +17,15 @@ export class SideMenuComponent implements OnInit {
   storeMenudata: any = [];
   companyLogo: any = "";
   collapsed = true;
+  companyname : string;
   constructor(
-    private router: Router
+    private router: Router,public webService: WebserviceService
   ) {}
   ngOnInit() {
-    
+    // this.companyname = 'Susanta Demo for test'
+    this.webService.companyname.subscribe(s =>{
+      this.companyname = s;
+    });
   }
 
   openNav() {

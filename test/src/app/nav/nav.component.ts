@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import { WebserviceService } from '../services/webservice.service';
 
 @Component({
   selector: 'app-nav',
@@ -8,13 +9,16 @@ import {Router} from '@angular/router';
 })
 export class NavComponent implements OnInit {
   collapsed = true;
-  constructor(private route:Router,) { }
+  companyname : string;
+  constructor(private route:Router,public webService: WebserviceService) { }
 
   ngOnInit(): void {
+    this.webService.companyname.subscribe(s =>{
+      this.companyname = s;
+    });
   }
-  logout(){
-    // localStorage.clear()
-    alert("Logout Successful !!")
-    this.route.navigate(['/login']);
+  noChange(comp){
+    console.log(comp.value)
+    this.webService.companyname.next(comp.value)
   }
 }
