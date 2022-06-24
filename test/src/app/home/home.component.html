@@ -25,6 +25,19 @@
     </mat-card-content>
   </mat-card> -->
   <mat-card class="example-card">
+    <div class="row">
+      <div class="col-sm-5">
+
+      </div>
+      <div class="col-sm-6">
+        
+      </div>
+      <div class="col-sm-1">
+      <span><button mat-fab color="warn" aria-label="Example icon button with a home icon" (click)="create()" matTooltip="Add new">
+        <mat-icon>add_circle</mat-icon>
+      </button></span>
+      </div>
+    </div>
     <table class="table">
       <thead class="thead-dark">
         <tr>
@@ -50,15 +63,15 @@
           <td>{{i.email}}</td>
           <td>{{i.password}}</td>
           <td>{{i.add_one}} {{i.add_two}} {{i.city}} {{i.state}} {{i.pin}}</td>
-          <td style="display: grid;"><button mat-button mat-raised-button color="primary" style="margin: 2px;" (click)="addupdate(i,'view')"><mat-icon>open_in_new</mat-icon> View</button>
-            <button mat-button mat-raised-button color="accent" style="margin: 2px;" (click)="addupdate(i,'edit')"><mat-icon>create</mat-icon> Update</button>
-            <button mat-button mat-raised-button color="warn" style="margin: 2px;" (click)="remove(i._id)"> <mat-icon>delete</mat-icon> Remove</button></td>
+          <td style="display: grid;"><button mat-button mat-raised-button color="primary" style="margin: 2px;" (click)="addupdate(i,'view')" matTooltip="Save"><mat-icon>open_in_new</mat-icon></button>
+            <button mat-button mat-raised-button color="accent" style="margin: 2px;" (click)="addupdate(i,'edit')" matTooltip="Update"><mat-icon>create</mat-icon></button>
+            <button mat-button mat-raised-button color="warn" style="margin: 2px;" (click)="remove(i._id)" matTooltip="Delete"> <mat-icon>delete</mat-icon></button></td>
         </tr>
       </tbody>
       </table>
   </mat-card>
   <!-- <app-footer></app-footer> -->
-  <mat-card class="example-card main_card" *ngIf="isViewVisible||isViewMode">
+  <mat-card class="example-card main_card" *ngIf="forCreate || isUpdate||isView">
   <mat-card class="example-card caed_head">
   <p class="card_para">This is For {{title}}</p>
   </mat-card>
@@ -70,7 +83,7 @@
               <mat-icon>account_circle</mat-icon>
               <span>{{ sinup_data.s_name }}</span>
             </span><span class="sp">Enter your First name *</span></mat-label>
-          <input matInput [(ngModel)]="sinup_data.s_name"  placeholder="Ex. Susanta" required [disabled]="isViewMode">
+          <input matInput [(ngModel)]="sinup_data.s_name"  placeholder="Ex. Susanta" required [disabled]="isView">
           <mat-error *ngIf="nameFormControl.hasError('required')">
             First name is <strong>required</strong>
           </mat-error>
@@ -81,7 +94,7 @@
           <mat-label><span class="icon">
               <mat-icon>account_circle</mat-icon>
             </span><span class="sp">Enter your Last Name *</span></mat-label>
-          <input matInput [(ngModel)]="sinup_data.l_name" placeholder="Ex. Mandal" required [disabled]="isViewMode">
+          <input matInput [(ngModel)]="sinup_data.l_name" placeholder="Ex. Mandal" required [disabled]="isView">
           <mat-error *ngIf="lastnameFormControl.hasError('required')">
             Last name is <strong>required</strong>
           </mat-error>
@@ -92,7 +105,7 @@
           <mat-label><span class="icon">
               <mat-icon>email</mat-icon>
             </span><span class="sp">Enter your Email*</span></mat-label>
-          <input matInput [(ngModel)]="sinup_data.email"  placeholder="Ex. pat@example.com" required [disabled]="isViewMode">
+          <input matInput [(ngModel)]="sinup_data.email"  placeholder="Ex. pat@example.com" required [disabled]="isView">
           <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
             Please enter a valid email address
           </mat-error>
@@ -108,7 +121,7 @@
               <mat-icon>call</mat-icon>
             </span><span class="sp">Enter your Mobile No*</span></mat-label>
           <input type="tel" [(ngModel)]="sinup_data.mobile" pattern="^\d{10}$" matInput  maxlength="10"
-            placeholder="Ex. 9679337134" required [disabled]="isViewMode">
+            placeholder="Ex. 9679337134" required [disabled]="isView">
           <mat-error *ngIf="phoneFormControl.hasError('required')">
             Mobile No is <strong>required enter valid phone </strong>
           </mat-error>
@@ -125,7 +138,7 @@
             <span class="sp">Your Password *</span>
           </mat-label>
           <input type="text" [(ngModel)]="sinup_data.password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" matInput 
-            maxlength="12" placeholder="Ex. Susanta@123 max-12 charater" required [disabled]="isViewMode">
+            maxlength="12" placeholder="Ex. Susanta@123 max-12 charater" required [disabled]="isView">
           <mat-error *ngIf="passwordFormControl.hasError('required')">
               Password is <strong>required enter valid Password </strong>
           </mat-error>
@@ -136,7 +149,7 @@
           <mat-label><span class="icon">
               <mat-icon>home</mat-icon>
             </span><span class="sp">Enter your Address one*</span></mat-label>
-          <textarea matInput [(ngModel)]="sinup_data.add_one" placeholder="Ex. New Town" required [disabled]="isViewMode"></textarea>
+          <textarea matInput [(ngModel)]="sinup_data.add_one" placeholder="Ex. New Town" required [disabled]="isView"></textarea>
           <mat-error *ngIf="addoneFormControl.hasError('required')">
             Address 1 is <strong>required</strong>
           </mat-error>
@@ -147,7 +160,7 @@
           <mat-label><span class="icon">
               <mat-icon>home</mat-icon>
             </span><span class="sp">Enter your Address two*</span></mat-label>
-          <textarea matInput  [(ngModel)]="sinup_data.add_two" placeholder="Ex. 100 Main rode" required [disabled]="isViewMode"></textarea>
+          <textarea matInput  [(ngModel)]="sinup_data.add_two" placeholder="Ex. 100 Main rode" required [disabled]="isView"></textarea>
           <mat-error *ngIf="addtwoFormControl.hasError('required')">
             Address 2 is <strong>required</strong>
           </mat-error>
@@ -158,7 +171,7 @@
           <mat-label><span class="icon">
               <mat-icon>location_city</mat-icon>
             </span><span class="sp">Enter your City*</span></mat-label>
-          <input matInput  [(ngModel)]="sinup_data.city" placeholder="Ex. Kolkata" required [disabled]="isViewMode">
+          <input matInput  [(ngModel)]="sinup_data.city" placeholder="Ex. Kolkata" required [disabled]="isView">
           <mat-error *ngIf="cityFormControl.hasError('required')">
             City is <strong>required</strong>
           </mat-error>
@@ -172,7 +185,7 @@
           <mat-label><span class="icon">
               <mat-icon>domain</mat-icon>
             </span><span class="sp">Enter your State*</span></mat-label>
-          <input matInput [(ngModel)]="sinup_data.state" placeholder="Ex. West Bengal" required [disabled]="isViewMode">
+          <input matInput [(ngModel)]="sinup_data.state" placeholder="Ex. West Bengal" required [disabled]="isView">
           <mat-error *ngIf="stateFormControl.hasError('required')">
             State is <strong>required</strong>
           </mat-error>
@@ -184,7 +197,7 @@
                 <mat-icon>add_location</mat-icon>
               </span><span class="sp">Enter your Postal Code*</span></mat-label>
             <input matInput [(ngModel)]="sinup_data.pin" #postalCode maxlength="6" placeholder="Ex. 941065"
-              value="940413" required [disabled]="isViewMode">
+              value="940413" required [disabled]="isView">
             <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
             <mat-error *ngIf="pinFormControl.hasError('required')">
               Pin is <strong>required</strong>
@@ -196,8 +209,9 @@
         </div>
         </div>
         <mat-card class="example-card caed_head_one">
-          <button mat-button mat-raised-button color="primary" style="margin: 5px;" (click)="update(sinup_data.id)" [hidden]="isViewMode"><mat-icon>send</mat-icon> Update</button>
-          <button mat-button mat-raised-button color="accent" (click)="backToList()"> <mat-icon>skip_previous</mat-icon> Back</button>
+          <button mat-button mat-raised-button color="primary" style="margin: 5px;" (click)="update(sinup_data.id)" [hidden]="isView || forCreate"><mat-icon>send</mat-icon> Update</button>
+          <button mat-button mat-raised-button color="accent" (click)="backFor()"> <mat-icon>skip_previous</mat-icon> Back</button>
+          <button mat-button mat-raised-button color="primary" style="margin: 5px;" (click)="save()" [hidden]="isView || isUpdate"><mat-icon>send</mat-icon> Save</button>
           </mat-card>
         
   </mat-card>

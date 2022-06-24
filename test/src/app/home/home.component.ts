@@ -151,22 +151,24 @@ export class HomeComponent implements OnInit {
     Validators.required,
     
   ]);
-isViewVisible:boolean = false;
-isViewMode:boolean=false;
+isUpdate:boolean = false;
+isView:boolean=false;
+forCreate:boolean =false;
 title:any='';
 addupdate(data,mode){
   if(mode=='view')
   {
     this.title = "View"
-    this.isViewMode=true;
-    this.isViewVisible=false;
+    this.isView=true;
+    this.isUpdate=false;
   }
   else
   {
     this.title = "Update"
-    this.isViewMode=false;
-    this.isViewVisible=true;
+    this.isView=false;
+    this.isUpdate=true;
   }  
+  this.forCreate = false;
     this.sinup_data.id = data._id;
     this.sinup_data.s_name = data.s_name ? data.s_name : '';
     this.sinup_data.l_name = data.l_name ? data.l_name :'';
@@ -265,8 +267,8 @@ addupdate(data,mode){
       data => {
           alert("Data update Success!!");
           this.route.navigate(['/home']);
-          this.isViewMode=false;
-          this.isViewVisible = false;  
+          this.isView=false;
+          this.isUpdate = false;  
           this.fetchingdata();
       },error => {
         alert("Something went wrong!!");
@@ -327,9 +329,118 @@ addupdate(data,mode){
       }
     );
   }
-  backToList() {
-    this.isViewMode=false;
-    this.isViewVisible = false;
+  backFor() {
+    this.isView=false;
+    this.isUpdate = false;
+    this.forCreate = false;
     this.fetchingdata();
   }
+  create() {
+    // this.isListVisible = false;
+    this.forCreate = true;
+    this.isUpdate = false;
+    this.sinup_data = {
+      id: '',
+      s_name: '',
+      l_name: '',
+      email: '',
+      mobile: '',
+      password: '',
+      c_password: '',
+      add_one: '',
+      add_two: '',
+      city: '',
+      state: '',
+      pin: '',
+      pass :'',
+      cpass:'',
+      passmsg:'',
+      };
+  }
+  save()
+ {
+  if(this.sinup_data.s_name == '' || this.sinup_data.s_name == undefined){
+    this.webService.makeFocusById('s_name')
+    alert("Enter valid First name in Personal Information!!")
+    return
+  }
+  if(this.sinup_data.l_name == '' || this.sinup_data.l_name == undefined){
+    this.webService.makeFocusById('l_name')
+    alert("Enter valid Last name in Personal Information!!")
+    return
+  }
+  if(this.sinup_data.email == '' || this.sinup_data.email == undefined){
+    this.webService.makeFocusById('email')
+    alert("Enter valid Email in Personal Information!!")
+    return
+  }
+  if(this.sinup_data.mobile == '' || this.sinup_data.mobile == undefined){
+    this.webService.makeFocusById('mobile')
+    alert("Enter valid Mobile in Personal Information!!")
+    return
+  }
+  if(this.sinup_data.password == '' || this.sinup_data.password == undefined){
+    this.webService.makeFocusById('password')
+    alert("Enter valid Password in Personal Information!!")
+    return
+  }
+  // if(this.sinup_data.c_password == '' || this.sinup_data.c_password == undefined){
+  //   this.webService.makeFocusById('c_password')
+  //   alert("Enter valid Confirm Password in Personal Information!!")
+  //   return
+  // }
+  if(this.sinup_data.add_one == '' || this.sinup_data.add_one == undefined){
+    this.webService.makeFocusById('add_one')
+    alert("Enter valid Address 1 in Address!!")
+    return
+  }
+  if(this.sinup_data.add_two == '' || this.sinup_data.add_two == undefined){
+    this.webService.makeFocusById('add_two')
+    alert("Enter valid Address 2 in Address!!")
+    return
+  }
+  if(this.sinup_data.city == '' || this.sinup_data.city == undefined){
+    this.webService.makeFocusById('city')
+    alert("Enter valid City in Address!!")
+    return
+  }
+  if(this.sinup_data.state == '' || this.sinup_data.state == undefined){
+    this.webService.makeFocusById('state')
+    alert("Enter valid State in Address!!")
+    return
+  }
+  if(this.sinup_data.pin == '' || this.sinup_data.pin == undefined){
+    this.webService.makeFocusById('pin')
+    alert("Enter valid Pin in Address!!")
+    return
+  }
+let requestData = {
+  "s_name": this.sinup_data.s_name ? this.sinup_data.s_name : '',
+  "l_name": this.sinup_data.l_name ? this.sinup_data.l_name : '',
+  "email": this.sinup_data.email ? this.sinup_data.email : '',
+  "mobile": this.sinup_data.mobile ? this.sinup_data.mobile : '',
+  "password": this.sinup_data.password ? this.sinup_data.password : '',
+  "add_one": this.sinup_data.add_one ? this.sinup_data.add_one : '',
+  "add_two": this.sinup_data.add_two ? this.sinup_data.add_two : '',
+  "city": this.sinup_data.city ? this.sinup_data.city : '',
+  "state": this.sinup_data.state ? this.sinup_data.state : '',
+  "pin": this.sinup_data.pin ? this.sinup_data.pin : '',
+}
+this.webService.postRequest("/save_user_data", requestData).
+subscribe(
+  data => {
+      alert("Data Added Success!!");
+      this.route.navigate(['/home']);
+      this.isView=false;
+      this.isUpdate = false;  
+      this.fetchingdata();
+  },error => {
+    alert("Something went wrong!!");
+    this.route.navigate(['/home']);
+    this.isView=false;
+    this.isUpdate = false;  
+    this.fetchingdata();
+  }
+);
+ }  
 }
