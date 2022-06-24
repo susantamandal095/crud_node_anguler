@@ -337,6 +337,7 @@ addupdate(data,mode){
   }
   create() {
     // this.isListVisible = false;
+    this.title = "Add"
     this.forCreate = true;
     this.isUpdate = false;
     this.sinup_data = {
